@@ -195,7 +195,7 @@ function RatelMark({ compact = false }: { compact?: boolean }) {
 function RatelLoginLogo() {
   return (
     <div className="ratel-login-logo">
-      <img src="./images/ratel-dijital-logo.webp" alt="Ratel Dijital" />
+      <img src="./images/ratel-dijital-logo-alpha.png" alt="Ratel Dijital" />
     </div>
   );
 }

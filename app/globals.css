@@ -111,9 +111,9 @@ button { color: inherit; }
 .login-panel { position: relative; z-index: 4; min-height: 100svh; display: grid; place-items: center; padding: 56px clamp(34px, 5vw, 86px); background: var(--paper); }
 .login-panel::before { content: "14"; position: absolute; right: -10px; bottom: -65px; color: rgba(16,22,26,.025); font: 24rem/.8 var(--font-display); pointer-events: none; }
 .login-panel__inner { width: min(100%, 420px); position: relative; z-index: 2; }
-.ratel-login-logo { width: min(64vw, 255px); position: relative; margin: 0 0 64px; }
+.ratel-login-logo { width: min(64vw, 270px); position: relative; margin: 0 0 64px; }
 .ratel-login-logo::after { content: ""; position: absolute; left: 0; bottom: -20px; width: 38px; height: 3px; background: var(--copper); }
-.ratel-login-logo img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; filter: contrast(1.08) saturate(1.06); }
+.ratel-login-logo img { display: block; width: 100%; height: auto; }
 .login-kicker { display: flex; align-items: center; gap: 8px; margin: 0 0 18px; color: var(--copper); font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .login-panel h2 { margin: 0; font: 2.35rem/1.05 var(--font-display); letter-spacing: -.025em; }
 .login-helper { margin: 14px 0 34px; color: #74716a; font-size: .92rem; line-height: 1.65; }
@@ -367,7 +367,7 @@ button { color: inherit; }
   .login-shell { grid-template-columns: 1fr; background: var(--paper); }
   .login-story { display: none; }
   .login-panel { padding: 34px 24px; }
-  .ratel-login-logo { width: min(58vw, 245px); margin-bottom: 58px; }
+  .ratel-login-logo { width: min(68vw, 245px); margin-bottom: 58px; }
   .section-heading { grid-template-columns: 1fr; gap: 16px; margin-bottom: 45px; }
   .section-heading__index { display: flex; align-items: center; gap: 12px; }
   .section-heading__index::after { display: inline-block; margin: 0; }
