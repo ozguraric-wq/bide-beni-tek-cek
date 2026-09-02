@@ -212,31 +212,37 @@ button { color: inherit; }
 
 .districts-section { padding: 128px 0; background: var(--night); color: white; position: relative; }
 .districts-section::before { content: "14"; position: absolute; right: -35px; top: 140px; color: rgba(255,255,255,.018); font: 35vw/.65 var(--font-display); pointer-events: none; }
-.districts-topline { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; margin: -18px 0 28px; color: rgba(255,255,255,.4); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; }
-.districts-topline p { display: flex; align-items: center; gap: 11px; margin: 0; }
-.district-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-left: 1px solid rgba(255,255,255,.1); border-top: 1px solid rgba(255,255,255,.1); }
-.district-card { min-height: 230px; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 22px; border: 0; border-right: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.014); color: white; text-align: left; cursor: pointer; overflow: hidden; transition: background .3s, transform .3s; }
-.district-card::before { content: ""; position: absolute; inset: auto 0 0; height: 4px; transform: scaleX(0); transform-origin: left; background: var(--copper); transition: transform .3s; }
-.district-card:hover { z-index: 2; background: var(--ink-soft); transform: translateY(-4px); box-shadow: 0 16px 35px rgba(0,0,0,.3); }
-.district-card:hover::before { transform: scaleX(1); }
-.district-card__no { color: rgba(255,255,255,.28); font: 1rem var(--font-display); }
-.district-card__body { display: flex; flex-direction: column; }
-.district-card__body small { color: var(--gold); font-size: .59rem; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
-.district-card__body strong { margin-top: 9px; font: 1.85rem/1 var(--font-display); }
-.district-card__body em { max-width: 210px; margin-top: 13px; color: rgba(255,255,255,.42); font-size: .7rem; font-style: normal; line-height: 1.5; }
-.district-card__arrow { position: absolute; right: 18px; top: 18px; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.48); transition: color .2s, border-color .2s, transform .2s; }
-.district-card:hover .district-card__arrow { border-color: var(--copper); color: var(--gold-light); transform: rotate(-35deg); }
-.district-dialog { max-width: 720px !important; overflow: hidden; border: 1px solid rgba(211,165,93,.25) !important; border-radius: 2px !important; background: var(--night) !important; color: white !important; padding: 42px !important; }
-.district-dialog::before { content: ""; position: absolute; width: 240px; height: 240px; right: -120px; top: -120px; border: 1px solid rgba(211,165,93,.13); transform: rotate(45deg); }
-.district-dialog > button { color: white !important; }
-.district-dialog__meta { display: flex; gap: 17px; color: var(--gold); font-size: .64rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
-.district-dialog__meta span + span::before { content: "•"; margin-right: 17px; color: var(--copper); }
-.district-dialog [data-slot="dialog-title"] { margin-top: 13px; font: clamp(2.7rem, 7vw, 4.8rem)/.9 var(--font-display) !important; letter-spacing: -.04em; }
-.district-dialog [data-slot="dialog-description"] { margin-top: 8px; color: rgba(255,255,255,.43) !important; font-size: .72rem; letter-spacing: .05em; }
-.district-dialog__question { margin-top: 17px; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.12); border-bottom: 1px solid rgba(255,255,255,.12); color: var(--gold-light); font: italic 1.35rem/1.35 var(--font-display); }
-.district-dialog__text { margin: 18px 0 0; color: rgba(255,255,255,.66); font-size: .9rem; line-height: 1.75; }
-.district-dialog__foot { display: flex; gap: 19px; margin-top: 25px; color: rgba(255,255,255,.4); font-size: .64rem; letter-spacing: .07em; text-transform: uppercase; }
-.district-dialog__foot span { display: flex; align-items: center; gap: 7px; }
+.district-explorer { position: relative; z-index: 2; display: grid !important; grid-template-columns: minmax(270px, .72fr) minmax(0, 1.7fr); gap: 0 !important; overflow: hidden; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.018); }
+.district-explorer__rail { display: flex; flex-direction: column; padding: 30px; border-right: 1px solid rgba(255,255,255,.12); background: rgba(3,10,12,.34); }
+.district-explorer__rail-title { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 24px; }
+.district-explorer__rail-title p { display: flex; align-items: center; gap: 10px; margin: 0; color: rgba(255,255,255,.38); font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.district-explorer__rail-title strong { color: var(--gold-light); font: 1.25rem/1 var(--font-display); white-space: nowrap; }
+.district-index { width: 100% !important; height: auto !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px !important; padding: 0 !important; border-radius: 0 !important; background: transparent !important; }
+.district-index__item { min-width: 0; min-height: 49px !important; display: flex !important; justify-content: flex-start !important; gap: 8px !important; padding: 0 10px !important; border: 1px solid rgba(255,255,255,.1) !important; border-radius: 0 !important; background: rgba(255,255,255,.018) !important; color: rgba(255,255,255,.48) !important; box-shadow: none !important; cursor: pointer; transition: border-color .2s, background .2s, color .2s !important; }
+.district-index__item::after { display: none !important; }
+.district-index__item span { color: rgba(255,255,255,.35); font: .86rem var(--font-display); transition: color .2s; }
+.district-index__item small { min-width: 0; overflow: hidden; color: inherit; font-size: .57rem; font-weight: 700; letter-spacing: .02em; text-overflow: ellipsis; }
+.district-index__item:hover { border-color: rgba(211,165,93,.48) !important; color: white !important; }
+.district-index__item[data-state="active"] { border-color: var(--copper) !important; background: var(--copper) !important; color: white !important; }
+.district-index__item[data-state="active"] span { color: var(--gold-light); }
+.district-explorer__hint { margin: auto 0 0; padding-top: 24px; color: rgba(255,255,255,.28); font-size: .62rem; line-height: 1.6; }
+.district-feature { min-height: 525px; position: relative; margin: 0 !important; padding: 42px clamp(36px, 5vw, 68px) 34px; overflow: hidden; outline: none; }
+.district-feature__watermark { position: absolute; right: -12px; top: -52px; color: rgba(255,255,255,.025); font: 17rem/.9 var(--font-display); pointer-events: none; }
+.district-feature__meta { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding-bottom: 17px; border-bottom: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.38); font-size: .61rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.district-feature__meta span:first-child { color: var(--gold); }
+.district-feature__body { max-width: 720px; position: relative; z-index: 2; padding: 28px 0 31px; }
+.district-feature__identity { margin: 0 0 9px; color: var(--gold); font-size: .63rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.district-feature h3 { margin: 0; color: white; font: clamp(3.4rem, 6.5vw, 6rem)/.88 var(--font-display); letter-spacing: -.045em; }
+.district-feature__short { margin: 16px 0 0; color: rgba(255,255,255,.42); font-size: .73rem; letter-spacing: .025em; }
+.district-feature blockquote { max-width: 650px; margin: 27px 0 0; padding: 18px 0 18px 21px; border-left: 2px solid var(--copper); color: var(--gold-light); font: italic 1.35rem/1.35 var(--font-display); }
+.district-feature__text { max-width: 700px; margin: 20px 0 0; color: rgba(255,255,255,.61); font-size: .89rem; line-height: 1.72; }
+.district-feature__foot { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); }
+.district-feature__format { display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,.36); font-size: .58rem; letter-spacing: .07em; text-transform: uppercase; }
+.district-feature__format span { display: flex; align-items: center; gap: 7px; }
+.district-feature__foot nav { display: grid; grid-template-columns: auto 54px auto; align-items: center; gap: 8px; }
+.district-feature__foot nav > span { color: rgba(255,255,255,.35); font-size: .58rem; text-align: center; }
+.district-feature__foot button { height: 35px; display: inline-flex; align-items: center; gap: 7px; padding: 0 11px; border: 1px solid rgba(255,255,255,.13); background: transparent; color: rgba(255,255,255,.55); cursor: pointer; font-size: .62rem; transition: border-color .2s, color .2s, background .2s; }
+.district-feature__foot button:hover { border-color: var(--copper); background: rgba(182,111,63,.1); color: white; }
 
 .cinema-section { padding: 128px 0 138px; background: #e7e0d5; }
 .cinema-collage { display: grid; grid-template-columns: 1.16fr .84fr; gap: 22px; }
@@ -336,7 +342,9 @@ button { color: inherit; }
   .desktop-nav { gap: 13px; }
   .desktop-nav button { font-size: .62rem; }
   .project-brand { min-width: 190px; }
-  .district-grid { grid-template-columns: repeat(3, 1fr); }
+  .district-explorer { grid-template-columns: minmax(235px, .7fr) minmax(0, 1.45fr); }
+  .district-explorer__rail { padding: 24px; }
+  .district-index__item { padding: 0 8px !important; }
   .alignment-map { grid-template-columns: 1fr; gap: 12px; }
   .alignment-link { height: 58px; }
   .alignment-link div { width: 1px; height: 100%; flex-direction: column; }
@@ -357,6 +365,9 @@ button { color: inherit; }
   .principles { grid-template-columns: 1fr 1fr; }
   .principles article:nth-child(2) { border-right: 0; }
   .principles article:nth-child(-n+2) { border-bottom: 1px solid rgba(16,22,26,.15); }
+  .district-explorer { grid-template-columns: minmax(225px, .62fr) minmax(0, 1.38fr); }
+  .district-index__item small { display: none; }
+  .district-index__item { justify-content: center !important; }
   .cinema-collage { grid-template-columns: 1fr; }
   .impact-grid { grid-template-columns: 1fr 1fr; }
   .impact-card--large { grid-row: auto; grid-column: span 2; min-height: 480px; }
@@ -391,11 +402,26 @@ button { color: inherit; }
   .principles article { min-height: 205px; border-right: 0; border-bottom: 1px solid rgba(16,22,26,.15); }
   .principles article:nth-child(-n+2) { border-bottom: 1px solid rgba(16,22,26,.15); }
   .principles article:last-child { border-bottom: 0; }
-  .district-grid { grid-template-columns: 1fr; }
-  .district-card { min-height: 190px; }
-  .districts-topline > span { display: none; }
-  .district-dialog { padding: 29px !important; }
-  .district-dialog__foot { flex-direction: column; }
+  .districts-section .section-heading { margin-bottom: 36px; }
+  .districts-section .section-heading h2 { font-size: clamp(2.75rem, 13.5vw, 4.25rem); }
+  .districts-section .section-heading__text { margin-top: 20px; line-height: 1.65; }
+  .district-explorer { grid-template-columns: 1fr; }
+  .district-explorer__rail { padding: 20px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .district-explorer__rail-title { align-items: center; margin-bottom: 17px; }
+  .district-index { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .district-index__item { min-height: 45px !important; }
+  .district-explorer__hint { display: none; }
+  .district-feature { min-height: 0; padding: 28px 22px 22px; }
+  .district-feature__watermark { right: -8px; top: -25px; font-size: 10rem; }
+  .district-feature__body { padding: 25px 0; }
+  .district-feature h3 { font-size: clamp(3.25rem, 16vw, 4.8rem); }
+  .district-feature__short { line-height: 1.5; }
+  .district-feature blockquote { margin-top: 23px; padding: 16px 0 16px 17px; font-size: 1.22rem; }
+  .district-feature__text { font-size: .86rem; line-height: 1.68; }
+  .district-feature__foot { align-items: stretch; flex-direction: column; }
+  .district-feature__format { justify-content: space-between; }
+  .district-feature__foot nav { grid-template-columns: 1fr 48px 1fr; }
+  .district-feature__foot button { justify-content: center; }
   .cinema-image { min-height: 430px; }
   .cinema-notes article { padding: 28px; }
   .sound-card { min-height: 400px; padding: 29px; }

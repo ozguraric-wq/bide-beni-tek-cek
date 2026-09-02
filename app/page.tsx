@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
   ArrowDown,
+  ArrowLeft,
   ArrowRight,
   Check,
   ChevronRight,
@@ -23,13 +24,6 @@ import {
 } from "lucide-react";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
   Sheet,
   SheetClose,
   SheetContent,
@@ -38,6 +32,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type District = {
   no: string;
@@ -292,7 +287,7 @@ function SoundWave() {
 }
 
 function ProjectSite({ onLogout }: { onLogout: () => void }) {
-  const [selectedDistrict, setSelectedDistrict] = useState<District | null>(null);
+  const [activeDistrictNo, setActiveDistrictNo] = useState(districts[0].no);
   const [activeSection, setActiveSection] = useState("manifesto");
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -376,19 +371,57 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
 
       <section id="bolumler" className="districts-section section-anchor">
         <div className="page-width">
-          <SectionHeading index="02" kicker="Bölüm Evreni" title="On dört ilçe. On dört ayrı ses." text="Her bölüm, ilçeyi bir katalog maddesine indirgemeden; o coğrafyayla gerçek bağ kurmuş bir insanın gündelik yaşamından okur. Kartlara dokunarak bölüm yaklaşımını açın." light />
-          <div className="districts-topline"><p><span className="live-dot" /> 14 bölüm seçkisi</p><span>İnsan · mekân · hafıza</span></div>
-          <div className="district-grid">
-            {districts.map((district) => <button key={district.name} className="district-card" onClick={() => setSelectedDistrict(district)}><span className="district-card__no">{district.no}</span><span className="district-card__body"><small>{district.identity}</small><strong>{district.name}</strong><em>{district.short}</em></span><span className="district-card__arrow"><ArrowRight size={18} /></span></button>)}
-          </div>
+          <SectionHeading index="02" kicker="Bölüm Evreni" title="On dört ilçe. On dört ayrı ses." text="Her bölüm, ilçeyi bir katalog maddesine indirgemeden; o coğrafyayla gerçek bağ kurmuş bir insanın gündelik yaşamından okur. Bölüm numarasını seçerek anlatının merkezine geçin." light />
+          <Tabs value={activeDistrictNo} onValueChange={setActiveDistrictNo} className="district-explorer">
+            <aside className="district-explorer__rail">
+              <div className="district-explorer__rail-title">
+                <p><span className="live-dot" /> Bölüm seçkisi</p>
+                <strong>14 hikâye</strong>
+              </div>
+              <TabsList className="district-index" aria-label="Belgesel bölümleri">
+                {districts.map((district) => (
+                  <TabsTrigger
+                    key={district.no}
+                    value={district.no}
+                    className="district-index__item"
+                    aria-label={`Bölüm ${district.no}: ${district.name}`}
+                  >
+                    <span>{district.no}</span>
+                    <small>{district.name}</small>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <p className="district-explorer__hint">Bir bölüm seçin; yaklaşımı aynı ekranda inceleyin.</p>
+            </aside>
+
+            {districts.map((district, index) => {
+              const previous = districts[(index - 1 + districts.length) % districts.length];
+              const next = districts[(index + 1) % districts.length];
+              return (
+                <TabsContent key={district.no} value={district.no} className="district-feature">
+                  <span className="district-feature__watermark" aria-hidden="true">{district.no}</span>
+                  <div className="district-feature__meta"><span>Bölüm {district.no}</span><span>18–24 dakika</span></div>
+                  <div className="district-feature__body">
+                    <p className="district-feature__identity">{district.identity}</p>
+                    <h3>{district.name}</h3>
+                    <p className="district-feature__short">{district.short}</p>
+                    <blockquote>“{district.question}”</blockquote>
+                    <p className="district-feature__text">{district.text}</p>
+                  </div>
+                  <footer className="district-feature__foot">
+                    <div className="district-feature__format"><span><Film size={16} /> Belgesel bölüm</span><span><Mic2 size={16} /> İnsan portresi</span></div>
+                    <nav aria-label="Bölümler arasında gezinme">
+                      <button type="button" onClick={() => setActiveDistrictNo(previous.no)} aria-label={`Önceki bölüm: ${previous.name}`}><ArrowLeft size={17} /><span>Önceki</span></button>
+                      <span>{district.no} / 14</span>
+                      <button type="button" onClick={() => setActiveDistrictNo(next.no)} aria-label={`Sonraki bölüm: ${next.name}`}><span>Sonraki</span><ArrowRight size={17} /></button>
+                    </nav>
+                  </footer>
+                </TabsContent>
+              );
+            })}
+          </Tabs>
         </div>
       </section>
-
-      <Dialog open={Boolean(selectedDistrict)} onOpenChange={(open) => !open && setSelectedDistrict(null)}>
-        <DialogContent className="district-dialog">
-          {selectedDistrict ? <><DialogHeader><div className="district-dialog__meta"><span>Bölüm {selectedDistrict.no}</span><span>{selectedDistrict.identity}</span></div><DialogTitle>{selectedDistrict.name}</DialogTitle><DialogDescription>{selectedDistrict.short}</DialogDescription></DialogHeader><div className="district-dialog__question">“{selectedDistrict.question}”</div><p className="district-dialog__text">{selectedDistrict.text}</p><div className="district-dialog__foot"><span><Film size={16} /> 18–24 dakika</span><span><Mic2 size={16} /> İnsan portresi</span></div></> : null}
-        </DialogContent>
-      </Dialog>
 
       <section id="sinema" className="cinema-section section-anchor">
         <div className="page-width">
