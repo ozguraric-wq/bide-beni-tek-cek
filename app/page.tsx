@@ -158,6 +158,18 @@ const districts: District[] = [
   },
 ];
 
+const productionSteps = [
+  { no: "01", title: "Keşif ve plan", time: "3 gün", phase: "Ön yapım", detail: "Karakter, mekân ve bölüm yaklaşımı saha gerçekliğiyle doğrulanır; çekimin yaratıcı ve operasyonel planı hazırlanır." },
+  { no: "02", title: "Karakter çekimleri", time: "3 gün", phase: "Saha", detail: "Ana karakterin gündelik hayatı, mekânla ilişkisi ve portre anlatısını taşıyan doğal anlar kayıt altına alınır." },
+  { no: "03", title: "Şehir planları", time: "2 gün", phase: "Saha", detail: "İlçenin ritmini, coğrafyasını ve karakter hikâyesini birbirine bağlayan tamamlayıcı şehir görüntüleri üretilir." },
+  { no: "04", title: "Tema müziği", time: "5 gün", phase: "İşitsel tasarım", detail: "Bölümün insanına ve coğrafyasına özgü duygusal ritmi destekleyen özgün tema müziği geliştirilir." },
+  { no: "05", title: "Offline edit", time: "5 gün", phase: "Post-prodüksiyon", detail: "Görüntüler anlatı omurgasına yerleştirilir; bölümün hikâye akışı, ritmi ve ilk kurgu yapısı oluşturulur." },
+  { no: "06", title: "Online edit", time: "10 gün", phase: "Post-prodüksiyon", detail: "Onaylanan kurgu teknik olarak tamamlanır; görüntü, ses ve grafik katmanları yayın standardında bütünleştirilir." },
+  { no: "07", title: "Renk", time: "2 gün", phase: "Son işlem", detail: "Serinin organik ve sinematik görsel dili doğrultusunda renk dengesi ve bölüm bütünlüğü tamamlanır." },
+  { no: "08", title: "Afiş ve kapak", time: "2 gün", phase: "Görsel iletişim", detail: "Bölümün karakterini ve ilçe kimliğini taşıyan afiş, kapak ve temel yayın görselleri hazırlanır." },
+  { no: "09", title: "Yayın hazırlığı", time: "3 gün", phase: "Teslim", detail: "Nihai yayın dosyaları, erişilebilirlik unsurları ve mecralara uygun teslim paketleri son kontrole alınır." },
+];
+
 const navItems = [
   { id: "manifesto", label: "Manifesto" },
   { id: "bolumler", label: "14 Bölüm" },
@@ -288,6 +300,7 @@ function SoundWave() {
 
 function ProjectSite({ onLogout }: { onLogout: () => void }) {
   const [activeDistrictNo, setActiveDistrictNo] = useState(districts[0].no);
+  const [activeProductionStep, setActiveProductionStep] = useState(productionSteps[0].no);
   const [activeSection, setActiveSection] = useState("manifesto");
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -479,10 +492,36 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
       <section id="uretim" className="production-section section-anchor">
         <div className="page-width">
           <SectionHeading index="06" kicker="Üretim Modeli" title="Her bölüm, keşiften yayına yaşayan bir süreç." text="Proje dosyasındaki bölüm bazlı öngörü; saha, müzik ve post-prodüksiyon aşamalarını tek bir sinema dili altında birleştirir. Kurumsal sunum ve geri bildirim süresi iletişim takvimine göre ayrıca yönetilir." />
-          <div className="production-summary"><div><Clock3 size={22} /><strong>35</strong><span>öngörülen iş günü / bölüm</span></div><p>Kurumsal sunum ve geri bildirim süresi hariç bölüm bazlı planlama.</p></div>
-          <div className="production-timeline" aria-label="Bölüm üretim aşamaları">
-            {[["01", "Keşif ve plan", "3 gün"], ["02", "Karakter çekimleri", "3 gün"], ["03", "Şehir planları", "2 gün"], ["04", "Tema müziği", "5 gün"], ["05", "Offline edit", "5 gün"], ["06", "Online edit", "10 gün"], ["07", "Renk", "2 gün"], ["08", "Afiş ve kapak", "2 gün"], ["09", "Yayın hazırlığı", "3 gün"]].map(([no, title, time]) => <article key={no}><span>{no}</span><div><h3>{title}</h3><p>{time}</p></div></article>)}
-          </div>
+          <Tabs value={activeProductionStep} onValueChange={setActiveProductionStep} className="production-explorer">
+            <header className="production-explorer__overview">
+              <div className="production-explorer__total"><Clock3 size={22} /><strong>35</strong><span>öngörülen iş günü<br />/ bölüm</span></div>
+              <div className="production-explorer__note"><strong>9 aşamalı bütünleşik üretim</strong><p>Kurumsal sunum ve geri bildirim süresi hariç bölüm bazlı planlama.</p></div>
+            </header>
+            <div className="production-explorer__body">
+              <aside className="production-explorer__index-wrap">
+                <p>Üretim akışı <span>Bir aşama seçin</span></p>
+                <TabsList className="production-index" aria-label="Bölüm üretim aşamaları">
+                  {productionSteps.map((step) => (
+                    <TabsTrigger key={step.no} value={step.no} className="production-index__item" aria-label={`${step.no}. aşama: ${step.title}, ${step.time}`}>
+                      <span>{step.no}</span><small>{step.title}</small>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </aside>
+              {productionSteps.map((step, index) => {
+                const previous = productionSteps[(index - 1 + productionSteps.length) % productionSteps.length];
+                const next = productionSteps[(index + 1) % productionSteps.length];
+                return (
+                  <TabsContent key={step.no} value={step.no} className="production-detail">
+                    <span className="production-detail__number" aria-hidden="true">{step.no}</span>
+                    <div className="production-detail__meta"><span>{step.phase}</span><span>Aşama {step.no} / 09</span></div>
+                    <div className="production-detail__content"><p>{step.time}</p><h3>{step.title}</h3><div className="production-detail__line" /><p className="production-detail__text">{step.detail}</p></div>
+                    <footer><button type="button" onClick={() => setActiveProductionStep(previous.no)} aria-label={`Önceki aşama: ${previous.title}`}><ArrowLeft size={17} /><span>Önceki</span></button><button type="button" onClick={() => setActiveProductionStep(next.no)} aria-label={`Sonraki aşama: ${next.title}`}><span>Sonraki</span><ArrowRight size={17} /></button></footer>
+                  </TabsContent>
+                );
+              })}
+            </div>
+          </Tabs>
         </div>
       </section>
 
