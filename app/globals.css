@@ -445,7 +445,12 @@ button { color: inherit; }
   .district-feature__format { justify-content: space-between; }
   .district-feature__foot nav { grid-template-columns: 1fr 48px 1fr; }
   .district-feature__foot button { justify-content: center; }
-  .cinema-image { min-height: 430px; }
+  .cinema-image { min-height: 0; overflow: visible; background: transparent; }
+  .cinema-image img { height: auto; position: relative; inset: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+  .cinema-image:hover img { transform: none; }
+  .cinema-image--craft img { object-position: center; }
+  .cinema-image--horse img { object-position: 78% center; }
+  .cinema-image figcaption { position: relative; left: auto; right: auto; bottom: auto; padding: 18px 20px; background: var(--ink); backdrop-filter: none; }
   .cinema-notes article { padding: 28px; }
   .sound-card { min-height: 400px; padding: 29px; }
   .impact-grid { grid-template-columns: 1fr; }
