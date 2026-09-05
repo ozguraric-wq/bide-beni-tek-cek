@@ -477,6 +477,8 @@ button { color: inherit; }
     height: 100dvh;
     max-height: none;
     margin: 0 !important;
+    --tw-translate-x: 0 !important;
+    --tw-translate-y: 0 !important;
     translate: 0 0 !important;
     transform: none !important;
     border: 0 !important;
