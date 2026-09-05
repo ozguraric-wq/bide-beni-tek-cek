@@ -464,7 +464,24 @@ button { color: inherit; }
   .director-entry__copy h3 { font-size: clamp(2.2rem, 11vw, 3.1rem); }
   .director-entry__copy > span { font-size: .72rem; }
   .director-entry__action { grid-column: auto; min-height: 56px; margin: 0 23px 23px; }
-  .director-reader { inset: 0 !important; top: 0 !important; left: 0 !important; width: 100vw !important; max-width: none !important; height: 100svh; max-height: none; transform: none !important; border: 0 !important; }
+  .director-reader {
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100svh;
+    height: 100dvh;
+    max-height: none;
+    margin: 0 !important;
+    translate: 0 0 !important;
+    transform: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
   .director-reader__layout { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
   .director-reader__aside { min-height: 76px; flex-direction: row; align-items: center; padding: 16px 20px; }
   .director-reader__aside > div { display: flex; align-items: center; gap: 11px; }
