@@ -5,6 +5,7 @@ import {
   ArrowDown,
   ArrowLeft,
   ArrowRight,
+  BookOpenText,
   Check,
   ChevronRight,
   Clock3,
@@ -23,6 +24,15 @@ import {
   Volume2,
 } from "lucide-react";
 
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Sheet,
   SheetClose,
@@ -170,6 +180,13 @@ const productionSteps = [
   { no: "09", title: "Yayın hazırlığı", time: "3 gün", phase: "Teslim", detail: "Nihai yayın dosyaları, erişilebilirlik unsurları ve mecralara uygun teslim paketleri son kontrole alınır." },
 ];
 
+const directorApproachParagraphs = [
+  "Şehrin ziyaretçi akınına uğrayan önemli bir mimari yapıtını düşünün. Kalabalıkta sıra bekleyen insanlar, o ana bir iz bırakmak için basılan deklanşörler. Aynı zaman. Aynı yer. Ancak daha sonra fotoğraflara baktığınızda aynı yer ve aynı zamanda olmasına rağmen her fotoğrafın başka bir hikaye anlattığını görürüz. Babamızın çocukluğunun geçtiği ev, eğer daha önce hiç gitmemişsek, babamız yanımızda yoksa bizimle konuşmaz. Anlatılanı tam idrak etmek için hem o yere hem de orayla bağ kuran insana aynı anda ihtiyaç duyduğumuzu farkederiz. Biz şehri, insan hikayesi ile okuruz.",
+  "Bi’de beni tek çek belgesel dizisi ile; her ilçe kendini, içinde hayatlarını kuran ve kendisi ile bağ kurmuş insanların dili ile anlatır. Şehri dinlemek / anlamak isteyen izleyiciye, bu şekilde kendisini layığı ile ifade eder. Şehrin anlatılması gereken tüm fenomenleri, şehir sakinlerinin sıradan hayatları ve şehir ile kurdukları bağ üzerinden anlatılır.",
+  "“Bi’de beni tek çek” belgesel filmini farklı kılan temel motivasyon, “anlatma” ile değil, “dinleme” kaygısı ile hayat buluyor olmasıdır. Bu dizide yönetmen, hikaye anlatıcısı olmaktan daha ziyade izleyici ile birlikte, şehrin hikayesini dinlemek için yolculuğa çıkmış bir flanördür. İzleyici; şehir okumasını yönetmen ile eş zamanlı gerçekleştirir. Bu yüzden belgesel filmin çekim planlaması yönetmenin istediği anlatım planları doğrultusunda değil, hikayenin hayat bulduğu mekanlar olarak tasarlanmıştır.",
+  "Bi de beni tek çek belgeselinin temel anlatım üslubu “gerçeklik”tir. Gerçekliğin etkisinden uzaklaştıracak tüm unsurlardan kaçar. Oluşturulan anlatım planları, konuşulan insanlar, ana fikri desteklemek için değildir. Ana fikri; kurulan bağlar ve şehrin anlattığı hikaye belirler. Belgesel, sonunda şehirle ilgili tek bir ders ya da sonuç çıkarma kaygısı gütmez. Her hikayenin izleyicideki yansıması farklı olacaktır. Belgeselin verdiği önem, hikayeyi biraz daha görünür kılmak ve izleyiciye o şehre kendi hikayesini anlatacak zemin oluşturmaktır. Belgeselin nihai amacı izleyiciyi hikayenin geçtiği yere çekmek ve şehre kendi hikayesini anlatma fırsatı sunmaktır. Çünkü şehir kendini anlatırken aynı zamanda dinler. Şehri okumak işteş bir eylemdir.",
+];
+
 const navItems = [
   { id: "manifesto", label: "Manifesto" },
   { id: "bolumler", label: "14 Bölüm" },
@@ -293,6 +310,44 @@ function SectionHeading({ index, kicker, title, text, light = false }: { index: 
   );
 }
 
+function DirectorApproach() {
+  return (
+    <Dialog>
+      <section className="director-entry" aria-labelledby="director-entry-title">
+        <div className="director-entry__mark"><BookOpenText size={25} aria-hidden="true" /><span>Tam metin</span></div>
+        <div className="director-entry__copy">
+          <p>Yönetmen Yaklaşımı</p>
+          <h3 id="director-entry-title">“Şehri, insan hikayesi ile okuruz”</h3>
+          <span>Yönetmenin onaylı yaklaşım metni, özgün biçimiyle sunulmaktadır.</span>
+        </div>
+        <DialogTrigger asChild>
+          <button className="director-entry__action" type="button"><span>Metnin tamamını oku</span><ArrowRight size={18} /></button>
+        </DialogTrigger>
+      </section>
+
+      <DialogContent className="director-reader" showCloseButton={false}>
+        <div className="director-reader__layout">
+          <aside className="director-reader__aside">
+            <div><BookOpenText size={28} aria-hidden="true" /><p>Yönetmen<br />Yaklaşımı</p><span>Eksiksiz metin</span></div>
+            <DialogClose asChild><button type="button"><ArrowLeft size={17} /><span>Sunuma dön</span></button></DialogClose>
+          </aside>
+          <article className="director-reader__body">
+            <DialogHeader className="director-reader__header">
+              <DialogDescription>Yönetmenin onaylı özgün metni</DialogDescription>
+              <DialogTitle>Yönetmen Yaklaşımı</DialogTitle>
+            </DialogHeader>
+            <blockquote>“Şehri, insan hikayesi ile okuruz”</blockquote>
+            <div className="director-reader__text">
+              {directorApproachParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            </div>
+            <div className="director-reader__end"><span /> Bi’de Beni Tek Çek</div>
+          </article>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function SoundWave() {
   const bars = useMemo(() => [24, 42, 68, 34, 78, 50, 90, 58, 38, 72, 46, 84, 54, 30, 62, 40, 76, 48], []);
   return <div className="sound-wave" aria-hidden="true">{bars.map((height, index) => <span key={`${height}-${index}`} style={{ height: `${height}%`, animationDelay: `${index * -0.08}s` }} />)}</div>;
@@ -379,6 +434,7 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
             <article><span>03</span><Mountain size={22} /><h3>İnsan–mekân bağı</h3><p>Mekân, onunla yaşayan insanın hafızasıyla birlikte anlam kazanır.</p></article>
             <article><span>04</span><Headphones size={22} /><h3>Kentin kendi sesi</h3><p>Dış sesin yerini ray, rüzgâr, su, emek ve gündelik yaşam alır.</p></article>
           </div>
+          <DirectorApproach />
         </div>
       </section>
 
