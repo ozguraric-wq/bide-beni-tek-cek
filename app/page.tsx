@@ -47,8 +47,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 type District = {
   no: string;
   name: string;
-  identity: string;
-  short: string;
+  theme: string;
+  focus: string;
   question: string;
   text: string;
 };
@@ -57,112 +57,112 @@ const districts: District[] = [
   {
     no: "01",
     name: "Beylikova",
-    identity: "Raylar ve Ritimler",
-    short: "Aile · toplumsal yaşam · şehrin insana verdiği nizam",
+    theme: "Raylar ve Ritimler — Aile, toplumsal yaşam ve şehrin insana verdiği nizam",
+    focus: "Tren sesiyle kurulan gündelik ritim ve aile özlemi",
     question: "Bir şehir, hayatın ritmini sesleriyle kurar mı?",
     text: "Demiryolu raylarının zamanı işaretleyen sesi gündelik hayatın ritmine karışır. Kamera, çocuklarının ziyaret haberini raylardan gelen seste arayan bir ailenin günü boyunca hem ilçeyi hem de bekleyişin sesini dinler.",
   },
   {
     no: "02",
     name: "Odunpazarı",
-    identity: "Pencereler ve İnsanlar",
-    short: "Yaşayan hafıza · zanaat · gündelik hayat",
+    theme: "Pencereler ve İnsanlar",
+    focus: "Yaşayan hafıza · zanaat · gündelik hayat",
     question: "Bir kentin hafızası taşlarda mı, insan yüzlerinde mi birikir?",
     text: "Ahşap cumbaların gölgesinde tarih donmuş bir vitrin değildir. Sabah kepengini açan lületaşı ustasının tezgâhında ve yüzyıllık bir pencereden sokağı izleyen insanın çayında, nefes alan bugünün nabzı tutulur.",
   },
   {
     no: "03",
     name: "Çifteler",
-    identity: "Suyun İlk Nefesi",
-    short: "Yeniden başlamak · yaşam · umut",
+    theme: "Suyun ilk nefesi — yeniden başlamak",
+    focus: "Yaşam · umut · balıkçının gündelik rutini",
     question: "Bir nehrin doğduğu yer, yeni başlangıçların da mekânı olabilir mi?",
     text: "Sakarya’nın toprağı yarıp nefes aldığı ilk yerde, her gün bu doğuma tanıklık eden bir insanın rutinleri izlenir. Balıkçılıkla hayatını kazanan bir yüz üzerinden yaşamın yeniden başlama gücü aranır.",
   },
   {
     no: "04",
     name: "Han",
-    identity: "Taşta Biriken Zaman",
-    short: "Frigya · geçmiş ve bugün · emek",
+    theme: "Frigya’ya yazılmış hayatlar — geçmiş ve bugün bağlamı",
+    focus: "Frigya · rehberlik · lavanta üretimi",
     question: "Binlerce yıllık hafıza bugünün ellerinde nasıl yaşar?",
     text: "Han’ın yeraltı dehlizlerine dokunan bir rehberin parmak uçları ile toprağa lavanta fidanı emanet eden üreticinin emeği aynı hikâyede buluşur. Frigya’nın mirası, insanla birlikte ete kemiğe bürünür.",
   },
   {
     no: "05",
     name: "Mahmudiye",
-    identity: "Anadolu’nun At Başkenti",
-    short: "Bilim · gelenek · sevgi bağı",
+    theme: "Anadolu’nun at başkenti — sevgi bağı",
+    focus: "Bilim · gelenek · insan ile at arasındaki dostluk",
     question: "Mahmudiye’yi atların başkenti yapan şey, her şeyden önce sevgi midir?",
     text: "Veteriner hekimin bilimsel titizliği, nal ustasının geleneksel mahareti ve insanla at arasındaki sessiz dostluk aynı kadraja girer. İlçenin asıl mirası, nesilden nesile aktarılan bu bağda aranır.",
   },
   {
     no: "06",
     name: "Günyüzü",
-    identity: "Sessizliğin Çağrısı",
-    short: "Yavaşlamak · sabır · gökyüzü",
+    theme: "Sessizliğin çağrısı",
+    focus: "Yavaşlamak · sabır · gökyüzü",
     question: "Şehri duymak için önce yavaşlamak gerekir mi?",
     text: "Bozkırın üzerine çöken karanlık bir yoksunluk değil, evrenin fısıltılarını duymak için bir lütuftur. Kamera hız çağının kibrini reddeder; sessizlikte büyüyen sabrı ve o sessizlikteki devasa hikâyeyi kaydeder.",
   },
   {
     no: "07",
     name: "İnönü",
-    identity: "Yer, Gök, Emek",
-    short: "Havacılık · üretim · millî mücadele ruhu",
+    theme: "Yer, Gök, Emek — Millî Mücadele ruhu",
+    focus: "Havacılık · ağır sanayi · genç emek",
     question: "Bir ilçenin mücadele ruhu, bugünün emeğinde yaşamaya devam eder mi?",
     text: "Havacılık sektörü ile ağır sanayinin şehre yüklediği anlam, İnönü’de doğup büyümüş genç bir çalışanın yüzünden okunur. Toprağın, gökyüzünün ve üretimin ortak hafızası görünür hâle gelir.",
   },
   {
     no: "08",
     name: "Mihalgazi",
-    identity: "İnsan ve Toprak",
-    short: "Vaha · bereket · memleket bağı",
+    theme: "Memleket — insan ve toprak ilişkisi",
+    focus: "Vaha · bereket · termal su · sera emeği",
     question: "Korunaklı bir vadi, insanıyla nasıl karşılıklı bir bağ kurar?",
     text: "Sarp yamaçların arasında Sakarıılıca’nın termal suları ve seraların altında toprağa eğilen emeğin nefesi duyulur. Mihalgazi, insanının kendisiyle kurduğu korunaklı ve bereketli bağı anlatır.",
   },
   {
     no: "09",
     name: "Mihalıççık",
-    identity: "Yunus’un Öğretisi",
-    short: "Sevgi felsefesi · emek · zanaat",
+    theme: "Yunus Emre",
+    focus: "Sevgi felsefesi · kiraz emeği · zanaat",
     question: "Yunus’un sözü, bugünün gündelik emeğinde nasıl okunur?",
     text: "Yunus’un toprağında kelimeler susar; öğretisi kiraz işçisinin emeğinde ve zanaatkârın elinde görünür olur. Kamera, yüzyıllardır şehre işlenmiş sevgi dilini doğrudan kentin kendisinden dinler.",
   },
   {
     no: "10",
     name: "Alpu",
-    identity: "Nesil ve Toprak",
-    short: "Üretim · akıllı tarım · genç üretici",
+    theme: "Nesil–toprak iletişimi",
+    focus: "Üretim · akıllı tarım · genç üreticiler",
     question: "Toprak yalnızca bir üretim aracı mı, nesiller arası bir iletişim bağı mı?",
     text: "Bir çiftçi ailesinin hikâyesi üzerinden nesil, toprak ve insan ilişkisi izlenir. Cevap; geleceği üretirken toprağı koruyan, onu dinleyen ellerde ve kuşaklar arasındaki sessiz aktarımda aranır.",
   },
   {
     no: "11",
     name: "Sarıcakaya",
-    identity: "Beraber Üretmek",
-    short: "Dayanışma · vadi · bereket",
+    theme: "Dayanışma — beraber üretmek",
+    focus: "Vadi · ipekböceği · sera · bereket",
     question: "Bir vadinin bereketi, dayanışmanın ritmiyle mi çoğalır?",
     text: "İpekböceğinin kozasını örerken çıkardığı ince ses, seradan ürün taşıyan kamyonların homurtusuna karışır. Kamera sıcağa göğüs geren sıradan hayatlarda ruh ile madde arasındaki dayanışma bağını dinler.",
   },
   {
     no: "12",
     name: "Seyitgazi",
-    identity: "Ruh ve Madde",
-    short: "İnanç · bilim · görünmez köprü",
+    theme: "Ruh ve Madde",
+    focus: "İnanç · bilim · görünmez köprü",
     question: "Bilimin gerçekliği ile inancın derinliği aynı şehirde nerede kesişir?",
     text: "Bor madenini yüksek teknolojiyle işleyen mühendisin bakışı, Seyyid Battal Gazi Külliyesi’nin gölgesindeki sükûnetle buluşur. İlçe, maddi üretim ile manevi hafıza arasındaki görünmez köprüyü anlatır.",
   },
   {
     no: "13",
     name: "Sivrihisar",
-    identity: "Evrensel Mizah",
-    short: "Nasreddin Hoca · genç anlatı · söz",
+    theme: "Evrensel mizah",
+    focus: "Nasreddin Hoca · genç anlatı · podcast",
     question: "Yüzyıllar öncesinden gelen bir gülümseme bugünün sesine dönüşebilir mi?",
     text: "Nasreddin Hoca’nın felsefesini podcast mikrofonuyla dünyaya taşımak isteyen bir genç, ilçenin insanlarını dinler. Şehir de kendisini onun merakı, mizahı ve yeni nesil anlatımı üzerinden ifade eder.",
   },
   {
     no: "14",
     name: "Tepebaşı",
-    identity: "Öz",
-    short: "Geçmiş · sürdürülebilir yaşam · gelecek",
+    theme: "Öz",
+    focus: "Geçmiş · sürdürülebilir yaşam · gelecek",
     question: "Bir şehrin vizyonu, kendi özüyle bağını koruyarak kurulabilir mi?",
     text: "Demiryolu atölyelerinin üretim ruhu, üniversite kampüsleri ve sürdürülebilir mahallelerle bugüne taşınır. Bisikletiyle şehri geçen bir öğrencinin rutini, geçmişle gelecek arasındaki bağı kurarak serinin anlamını tamamlar.",
   },
@@ -440,7 +440,7 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
 
       <section id="bolumler" className="districts-section section-anchor">
         <div className="page-width">
-          <SectionHeading index="02" kicker="Bölüm Evreni" title="On dört ilçe. On dört ayrı ses." text="Her bölüm, ilçeyi bir katalog maddesine indirgemeden; o coğrafyayla gerçek bağ kurmuş bir insanın gündelik yaşamından okur. Bölüm numarasını seçerek anlatının merkezine geçin." light />
+          <SectionHeading index="02" kicker="Bölüm Evreni" title="On dört ilçe. On dört ayrı ses." text="Her bölüm, ilçeyi bir katalog maddesine indirgemeden; o coğrafyayla gerçek bağ kurmuş bir insanın gündelik yaşamından okur. Bir bölüm seçerek ana temasını, anlatı odağını ve hikâye yaklaşımını aynı ekranda keşfedin." light />
           <Tabs value={activeDistrictNo} onValueChange={setActiveDistrictNo} className="district-explorer">
             <aside className="district-explorer__rail">
               <div className="district-explorer__rail-title">
@@ -471,9 +471,12 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
                   <span className="district-feature__watermark" aria-hidden="true">{district.no}</span>
                   <div className="district-feature__meta"><span>Bölüm {district.no}</span><span>18–24 dakika</span></div>
                   <div className="district-feature__body">
-                    <p className="district-feature__identity">{district.identity}</p>
                     <h3>{district.name}</h3>
-                    <p className="district-feature__short">{district.short}</p>
+                    <div className="district-feature__theme">
+                      <span>Ana tema</span>
+                      <strong>{district.theme}</strong>
+                    </div>
+                    <p className="district-feature__focus"><span>Anlatı odağı</span>{district.focus}</p>
                     <blockquote>“{district.question}”</blockquote>
                     <p className="district-feature__text">{district.text}</p>
                   </div>
@@ -590,7 +593,13 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
 export default function Home() {
   const [hydrated, setHydrated] = useState(false);
   const [authorized, setAuthorized] = useState(false);
-  useEffect(() => { setAuthorized(sessionStorage.getItem("bide-beni-tek-cek-access") === "granted"); setHydrated(true); }, []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      setAuthorized(sessionStorage.getItem("bide-beni-tek-cek-access") === "granted");
+      setHydrated(true);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
   function logout() { sessionStorage.removeItem("bide-beni-tek-cek-access"); setAuthorized(false); window.scrollTo({ top: 0 }); }
   if (!hydrated) return <div className="page-loader" aria-label="Sunum yükleniyor"><span /></div>;
   if (!authorized) return <LoginScreen onSuccess={() => setAuthorized(true)} />;
