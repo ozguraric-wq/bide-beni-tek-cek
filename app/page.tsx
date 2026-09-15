@@ -196,108 +196,12 @@ const navItems = [
   { id: "uretim", label: "Üretim" },
 ];
 
-const USER_HASH = "f1e27f89bedae8952a576434b0fc2ec851ebbd7b0391407ed7181d0347acfa61";
-const PASS_HASH = "95f5c93cdf6f7d46d7c7cd41d2b6199ee390f2cc82259ce2233bad2cab194ad3";
-
-async function sha256(value: string) {
-  const data = new TextEncoder().encode(value);
-  const digest = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-}
-
 function RatelMark({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`ratel-mark${compact ? " ratel-mark--compact" : ""}`}>
       <span className="ratel-symbol" aria-hidden="true"><span>R</span></span>
       <span className="ratel-wordmark"><strong>RATEL</strong><small>DİJİTAL</small></span>
     </div>
-  );
-}
-
-function RatelLoginLogo() {
-  return (
-    <div className="ratel-login-logo">
-      <img src="./images/ratel-dijital-logo-alpha.png" alt="Ratel Dijital" />
-    </div>
-  );
-}
-
-function LoginScreen({ onSuccess }: { onSuccess: () => void }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setLoading(true);
-    setError("");
-    const [userHash, passHash] = await Promise.all([
-      sha256(username.trim().toLocaleLowerCase("tr-TR")),
-      sha256(password),
-    ]);
-    await new Promise((resolve) => window.setTimeout(resolve, 420));
-    if (userHash === USER_HASH && passHash === PASS_HASH) {
-      sessionStorage.setItem("bide-beni-tek-cek-access", "granted");
-      onSuccess();
-    } else {
-      setError("Kullanıcı adı veya şifre hatalı. Bilgilerinizi kontrol edin.");
-    }
-    setLoading(false);
-  }
-
-  return (
-    <main className="login-shell">
-      <div className="login-grain" aria-hidden="true" />
-      <div className="login-orbit login-orbit--one" aria-hidden="true" />
-      <div className="login-orbit login-orbit--two" aria-hidden="true" />
-
-      <section className="login-story" aria-label="Proje tanıtımı">
-        <div className="login-story__brandline"><span aria-hidden="true" /> Ratel Dijital yapım sunumu</div>
-        <div className="login-story__center">
-          <p className="eyebrow eyebrow--light">Özel proje karşılama alanı</p>
-          <div className="login-project-lockup">
-            <span className="login-project-lockup__frame" aria-hidden="true">14</span>
-            <div><p>Belgesel Dizi Projesi</p><h1>Bi’de Beni Tek Çek</h1></div>
-          </div>
-          <p className="login-lead">Eskişehir’in on dört ilçesini, o şehirle bağ kurmuş insanların yüzünden ve sesinden dinleyen bir belgesel yolculuğu.</p>
-        </div>
-        <div className="login-story__foot"><span>14 ilçe</span><span>14 insan portresi</span><span>tek yaşayan hafıza</span></div>
-      </section>
-
-      <section className="login-panel" aria-label="Giriş alanı">
-        <div className="login-panel__inner">
-          <RatelLoginLogo />
-          <p className="login-kicker"><LockKeyhole size={15} aria-hidden="true" /> Korumalı sunum</p>
-          <h2>Proje dosyasına giriş</h2>
-          <p className="login-helper">Bu alan yalnızca yetkilendirilmiş proje paydaşlarının erişimine açıktır.</p>
-          <form onSubmit={handleSubmit} className="login-form">
-            <label>
-              <span>Kullanıcı adı</span>
-              <input value={username} onChange={(event) => setUsername(event.target.value)} autoComplete="username" inputMode="text" placeholder="Kullanıcı adınızı yazın" required />
-            </label>
-            <label>
-              <span>Şifre</span>
-              <div className="password-field">
-                <input value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" type={showPassword ? "text" : "password"} placeholder="Şifrenizi yazın" required />
-                <button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Şifreyi gizle" : "Şifreyi göster"}>
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </label>
-            <div className={`login-error${error ? " is-visible" : ""}`} role="alert">{error || "Giriş bilgileri doğrulanamadı."}</div>
-            <button className="login-submit" type="submit" disabled={loading}>
-              <span>{loading ? "Doğrulanıyor" : "Sunuma giriş yap"}</span>
-              {loading ? <span className="button-loader" /> : <ArrowRight size={18} />}
-            </button>
-          </form>
-          <div className="login-secure-note"><span className="secure-dot" /> Ratel Dijital korumalı karşılama alanı</div>
-        </div>
-      </section>
-    </main>
   );
 }
 
@@ -353,7 +257,7 @@ function SoundWave() {
   return <div className="sound-wave" aria-hidden="true">{bars.map((height, index) => <span key={`${height}-${index}`} style={{ height: `${height}%`, animationDelay: `${index * -0.08}s` }} />)}</div>;
 }
 
-function ProjectSite({ onLogout }: { onLogout: () => void }) {
+function ProjectSite() {
   const [activeDistrictNo, setActiveDistrictNo] = useState(districts[0].no);
   const [activeProductionStep, setActiveProductionStep] = useState(productionSteps[0].no);
   const [activeSection, setActiveSection] = useState("manifesto");
@@ -393,7 +297,6 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
           {navItems.map((item) => <button key={item.id} className={activeSection === item.id ? "is-active" : ""} onClick={() => goTo(item.id)}>{item.label}</button>)}
         </nav>
         <div className="header-actions">
-          <button className="logout-button" onClick={onLogout} aria-label="Oturumu kapat"><LogOut size={16} /><span>Çıkış</span></button>
           <Sheet>
             <SheetTrigger asChild><button className="mobile-menu-button" aria-label="Menüyü aç"><Menu size={22} /></button></SheetTrigger>
             <SheetContent side="right" className="mobile-sheet">
@@ -591,17 +494,5 @@ function ProjectSite({ onLogout }: { onLogout: () => void }) {
 }
 
 export default function Home() {
-  const [hydrated, setHydrated] = useState(false);
-  const [authorized, setAuthorized] = useState(false);
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      setAuthorized(sessionStorage.getItem("bide-beni-tek-cek-access") === "granted");
-      setHydrated(true);
-    });
-    return () => cancelAnimationFrame(frame);
-  }, []);
-  function logout() { sessionStorage.removeItem("bide-beni-tek-cek-access"); setAuthorized(false); window.scrollTo({ top: 0 }); }
-  if (!hydrated) return <div className="page-loader" aria-label="Sunum yükleniyor"><span /></div>;
-  if (!authorized) return <LoginScreen onSuccess={() => setAuthorized(true)} />;
-  return <ProjectSite onLogout={logout} />;
+  return <ProjectSite />;
 }
